@@ -1,9 +1,12 @@
 
+
+
 /**
  * Description: Universe.java. In this program, I had to implement a JFrame and add 4 JPanels into
  * that frame. In addition, I had to add a JSlider at the south side of the frame.
  *
- * (Assignment number: Recitation 4 Part 1:GUI) Completion time: 20 hours
+ * (Assignment number: Recitation 4 Part 3) 
+ * Completion time: 20 hours
  *
  * @author Paul Tang
  * @version 1.0
@@ -31,9 +34,9 @@ public class Universe extends JFrame {
     JLabel pau_label = new JLabel("Paul");
 
     public Universe() {
+        
         super("Universe");
         setResizable(true);
-
         final JPanel proj = new JPanel();
         proj.setLayout(layout);
         JPanel controls = new JPanel();
@@ -49,22 +52,23 @@ public class Universe extends JFrame {
 //I set up the components to the preferred size
         proj.setPreferredSize(new Dimension(600, 600));
 
-        //xPanel.add(viv_label);
+  
         proj.add(xPanel);
         xPanel.add(viv_label);
-        // yPanel.add(new JLabel("Chandler"));
         proj.add(yPanel);
         yPanel.add(cha_label);
-        // zPanel.add(new JLabel("Ramy"));
+        
         proj.add(zPanel);
         zPanel.add(ram_label);
-        //pPanel.add(new JLabel("Paul"));
+        zPanel.setVisible(false);
+        
         proj.add(pPanel);
         pPanel.add(pau_label);
         
         this.add(proj, BorderLayout.NORTH);
         this.add(new JSeparator(), BorderLayout.CENTER);
         this.add(controls, BorderLayout.CENTER);
+        
 
     }
 
@@ -80,15 +84,20 @@ public class Universe extends JFrame {
                 yPanel.add(cha_label);
                 zPanel.add(ram_label);
                 pPanel.setVisible(true);
-            } else {
+            } else{
                 xPanel.remove(viv_label);
                 yPanel.remove(cha_label);
                 zPanel.remove(ram_label);
                 pPanel.setVisible(false);
             }
+           
             xPanel.changeState(status);
             yPanel.changeState(status);
-            zPanel.changeState(status);
+            
+            if (status==4){
+                zPanel.setVisible(true);
+            }
+           
         }
     }
 
@@ -98,5 +107,6 @@ public class Universe extends JFrame {
         projTwo.pack();//resizes the window to fit contents
         projTwo.setVisible(true); //the window will appear
     }
+    
 
 }
