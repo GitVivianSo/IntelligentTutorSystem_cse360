@@ -31,16 +31,16 @@ import javax.swing.*;
 
 */
 public class Companion extends JPanel implements Observer
-{   
+{
     int status= 0;
 
 
     JPanel pan = new JPanel();;
     JLabel name = new JLabel("Vivian");
     JLabel picture;
-    
 
-    
+
+
     final int defWid ;
     final int defHeight ;
 
@@ -62,13 +62,13 @@ public class Companion extends JPanel implements Observer
         picture = new JLabel();
         pan.add(picture);
         name.setText("<html><h1>Vivian So</h1></html>");
-        
+
         defWid=picture.getWidth();
         defHeight=picture.getHeight();
         picWidth =picture.getWidth();;
         picHeight=picture.getHeight();;
         animation.start();
-     
+
     }
     public void changeFace(int status){
         if(status==1){
@@ -97,25 +97,25 @@ public class Companion extends JPanel implements Observer
 
     protected static ImageIcon createImageIcon(String path) {
         //java.net.URL imgURL = Companion.class.getResource(path);
-        
+
         String imgURL = System.getProperty("user.dir");
-        imgURL = imgURL.substring(0, imgURL.length() ) + "/src/main/resources/" +path;
+        imgURL = imgURL.replace("java", "resources") + "/" + path;
         //System.out.println("FilePathDEBUG: " +imgURL);
-        
+
 		//resizing
 		ImageIcon imageIcon = new ImageIcon(new ImageIcon(imgURL).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 
         try {
         	return imageIcon;
-	    	 
+
 	    } catch (Exception e) {
 	         e.printStackTrace();
 	         System.out.println("Image not found");
 	         return new ImageIcon();
 	    }
-       
+
     }
-    
+
     public void changeState(int state){
         status = state;
         animCount = expandMax + 1;  //get it to reset to beginning
@@ -125,7 +125,7 @@ public class Companion extends JPanel implements Observer
     public Dimension getPreferredSize(){
         return new Dimension(100, 100);
     }
- 
+
 
     private class AnimationListener implements ActionListener
     {
