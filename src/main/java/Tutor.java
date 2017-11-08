@@ -164,9 +164,10 @@ public class Tutor extends JPanel implements ActionListener {
         try {
             fr = null;
             scrollPane = null;
-  
+
             String dir = System.getProperty("user.dir");
-            dir = dir.substring(0, dir.length() ) + "/src/main/resources";
+            //dir = dir.substring(0, dir.length() ) + "";
+            dir = dir.replace("java","resources");
             fr = new FileReader(new File(dir + "/" + file));
 
 
