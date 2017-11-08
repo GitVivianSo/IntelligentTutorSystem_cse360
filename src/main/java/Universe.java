@@ -18,20 +18,20 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Universe extends JFrame {
+public class Universe extends JFrame { //implements ActionListener{
 
     GridLayout layout = new GridLayout(0, 2);
     JSlider sliding;
-    Companion xPanel = new Companion();
-    Tutor yPanel = new Tutor();
-    Assessor zPanel = new Assessor();
+    CompanionPanel avatarPanel = new CompanionPanel();
+    Tutor tutorPanel = new Tutor();
+    Assessor assessorPanel = new Assessor();
     JPanel pPanel = new JPanel();
 
-    //Labels
-    JLabel viv_label = new JLabel("Vivian");
-    JLabel cha_label = new JLabel("Chandler");
-    JLabel ram_label = new JLabel("Ramy");
-    JLabel pau_label = new JLabel("Paul");
+//    //Labels
+//    JLabel viv_label = new JLabel("Vivian");
+//    JLabel cha_label = new JLabel("Chandler");
+//    JLabel ram_label = new JLabel("Ramy");
+//    JLabel pau_label = new JLabel("Paul");
 
     public Universe() {
         
@@ -52,22 +52,22 @@ public class Universe extends JFrame {
 //I set up the components to the preferred size
         proj.setPreferredSize(new Dimension(600, 600));
 
-  
-        proj.add(xPanel);
-        xPanel.add(viv_label);
-        proj.add(yPanel);
-        yPanel.add(cha_label);
-        
-        proj.add(zPanel);
-        zPanel.add(ram_label);
-        zPanel.setVisible(false);
-        
+//add panels
+        proj.add(avatarPanel);
+        proj.add(tutorPanel);
+        proj.add(assessorPanel);
         proj.add(pPanel);
-        pPanel.add(pau_label);
+        assessorPanel.setVisible(false);
+        
+// labels should be added inside panels not from main
+        // yPanel.add(cha_label);
+        //  xPanel.add(viv_label);
+        // zPanel.add(ram_label);
+        // pPanel.add(pau_label);
         
         this.add(proj, BorderLayout.NORTH);
         this.add(new JSeparator(), BorderLayout.CENTER);
-        this.add(controls, BorderLayout.CENTER);
+        this.add(controls, BorderLayout.CENTER); //slider
         
 
     }
@@ -77,26 +77,41 @@ public class Universe extends JFrame {
         public void stateChanged(ChangeEvent e) {
 //when we slide the slider, we want the label to change to where the slider is at
             JSlider slide = (JSlider) e.getSource();
-            int status = slide.getValue(); //when it hits the tick, you will find the value
-
-            if (status == 0) {
-                xPanel.add(viv_label);
-                yPanel.add(cha_label);
-                zPanel.add(ram_label);
-                pPanel.setVisible(true);
-            } else{
-                xPanel.remove(viv_label);
-                yPanel.remove(cha_label);
-                zPanel.remove(ram_label);
-                pPanel.setVisible(false);
-            }
-           
-            xPanel.changeState(status);
-            yPanel.changeState(status);
+            int status = slide.getValue(); 
             
-            if (status==4){
-                zPanel.setVisible(true);
-            }
+//for companion decorator
+	    	if (status == 0) {
+				BasicCompanion basic = new BasicCompanion();
+				avatarPanel.setCompanion(basic); 
+				avatarPanel.showYourself();
+			} else if (status == 1) {
+				BasicCompanion basic = new BasicCompanion();
+				HelperCompanion helper = new HelperCompanion();
+				helper.add(basic);
+				avatarPanel.setCompanion(helper); 
+				avatarPanel.showYourself();
+			} else if (status == 2) {
+				BasicCompanion basic = new BasicCompanion();
+				AffectiveCompanion h = new AffectiveCompanion();
+				h.add(basic);
+				avatarPanel.setCompanion(h); 
+				avatarPanel.showYourself();
+			} else if (status == 3) {
+				HelperCompanion helper2 = new HelperCompanion();
+				AffectiveCompanion affective = new AffectiveCompanion();
+				BasicCompanion basic2 = new BasicCompanion();
+				helper2.add(affective);
+				affective.add(basic2);
+				avatarPanel.setCompanion(helper2);
+				avatarPanel.showYourself();
+			}
+	    	
+           //avatarPanel.changeState(status);
+           tutorPanel.changeState(status);
+           
+           if (status==4){
+          	  	assessorPanel.setVisible(true); //display quiz
+           }
            
         }
     }
@@ -107,6 +122,4 @@ public class Universe extends JFrame {
         projTwo.pack();//resizes the window to fit contents
         projTwo.setVisible(true); //the window will appear
     }
-    
-
 }
