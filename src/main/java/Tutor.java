@@ -7,10 +7,9 @@ import java.awt.event.*;
 
 /*
 * Description: Tutor.java
-* -load html files for each of the options the user picks in the
-* Universe.java file
-* (Assignment number: Recitation 4 Part 1:GUI)
-*Completion Time: 18 hours
+* -load html files for each of the options the user picks in the  Universe.java file
+* (Assignment number: Recitation 4 Part 4)
+*Completion Time: n/a
 * @author Chandler Cotton
 * @version 1.0
  */
@@ -166,8 +165,8 @@ public class Tutor extends JPanel implements ActionListener {
             scrollPane = null;
 
             String dir = System.getProperty("user.dir");
-            //dir = dir.substring(0, dir.length() ) + "";
-            dir = dir.replace("java","resources");
+            //dir = dir.replace("java","resources");
+            dir = dir.substring(0, dir.length() ) + "/src/main/resources";
             fr = new FileReader(new File(dir + "/" + file));
 
 

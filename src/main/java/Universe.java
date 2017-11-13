@@ -1,14 +1,12 @@
-
-
-
 /**
- * Description: Universe.java. In this program, I had to implement a JFrame and add 4 JPanels into
+ * Description: Universe.java. 
+ * 		-In this program, I had to implement a JFrame and add 4 JPanels into
  * that frame. In addition, I had to add a JSlider at the south side of the frame.
  *
- * (Assignment number: Recitation 4 Part 3) 
- * Completion time: 20 hours
+ * (Assignment number: Recitation 4 Part 4) 
+ * Completion time: 5h
  *
- * @author Paul Tang
+ * @author Paul Tang 
  * @version 1.0
  */
 
@@ -24,15 +22,9 @@ public class Universe extends JFrame { //implements ActionListener{
     JSlider sliding;
     CompanionPanel avatarPanel = new CompanionPanel();
     Tutor tutorPanel = new Tutor();
-    Assessor assessorPanel = new Assessor();
+    AssessorPanel assessorPanel = new AssessorPanel();
     JPanel pPanel = new JPanel();
-
-//    //Labels
-//    JLabel viv_label = new JLabel("Vivian");
-//    JLabel cha_label = new JLabel("Chandler");
-//    JLabel ram_label = new JLabel("Ramy");
-//    JLabel pau_label = new JLabel("Paul");
-
+    
     public Universe() {
         
         super("Universe");
@@ -50,69 +42,29 @@ public class Universe extends JFrame { //implements ActionListener{
         sliding.addChangeListener(ab);
 
 //I set up the components to the preferred size
-        proj.setPreferredSize(new Dimension(600, 600));
+        proj.setPreferredSize(new Dimension(1100, 600));
 
 //add panels
         proj.add(avatarPanel);
         proj.add(tutorPanel);
-        proj.add(assessorPanel);
+        proj.add(assessorPanel.AssessorPan);
         proj.add(pPanel);
-        assessorPanel.setVisible(false);
         
-// labels should be added inside panels not from main
-        // yPanel.add(cha_label);
-        //  xPanel.add(viv_label);
-        // zPanel.add(ram_label);
-        // pPanel.add(pau_label);
-        
+ //for Observer pattern
+        assessorPanel.addObserver(avatarPanel);
         this.add(proj, BorderLayout.NORTH);
         this.add(new JSeparator(), BorderLayout.CENTER);
         this.add(controls, BorderLayout.CENTER); //slider
-        
-
     }
 
-    public class event implements ChangeListener {
-
+    public class event implements ChangeListener 
+    {
         public void stateChanged(ChangeEvent e) {
 //when we slide the slider, we want the label to change to where the slider is at
-            JSlider slide = (JSlider) e.getSource();
-            int status = slide.getValue(); 
-            
-//for companion decorator
-	    	if (status == 0) {
-				BasicCompanion basic = new BasicCompanion();
-				avatarPanel.setCompanion(basic); 
-				avatarPanel.showYourself();
-			} else if (status == 1) {
-				BasicCompanion basic = new BasicCompanion();
-				HelperCompanion helper = new HelperCompanion();
-				helper.add(basic);
-				avatarPanel.setCompanion(helper); 
-				avatarPanel.showYourself();
-			} else if (status == 2) {
-				BasicCompanion basic = new BasicCompanion();
-				AffectiveCompanion h = new AffectiveCompanion();
-				h.add(basic);
-				avatarPanel.setCompanion(h); 
-				avatarPanel.showYourself();
-			} else if (status == 3) {
-				HelperCompanion helper2 = new HelperCompanion();
-				AffectiveCompanion affective = new AffectiveCompanion();
-				BasicCompanion basic2 = new BasicCompanion();
-				helper2.add(affective);
-				affective.add(basic2);
-				avatarPanel.setCompanion(helper2);
-				avatarPanel.showYourself();
-			}
-	    	
-           //avatarPanel.changeState(status);
+	       JSlider slide = (JSlider) e.getSource();
+	       int status = slide.getValue();
+           avatarPanel.changeState(status); 
            tutorPanel.changeState(status);
-           
-           if (status==4){
-          	  	assessorPanel.setVisible(true); //display quiz
-           }
-           
         }
     }
 
